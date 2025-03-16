@@ -24,7 +24,7 @@ class TextStyleScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Styled Text AppBar')),
-        backgroundColor: Colors.teal, // Changed from blueAccent
+        backgroundColor: Colors.teal, 
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,7 +36,7 @@ class TextStyleScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepOrange, // Changed from red
+                color: Colors.deepOrange, 
               ),
             ),
             const SizedBox(height: 10),
@@ -45,7 +45,7 @@ class TextStyleScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontStyle: FontStyle.italic,
-                color: Colors.amber, // Changed from green
+                color: Colors.amber, 
               ),
             ),
             const SizedBox(height: 10),
@@ -54,7 +54,7 @@ class TextStyleScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 decoration: TextDecoration.underline,
-                color: Colors.indigo, // Changed from blue
+                color: Colors.indigo, 
               ),
             ),
             const SizedBox(height: 10),
@@ -66,7 +66,7 @@ class TextStyleScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.cyan, // Changed from orange
+                    color: Colors.cyan, 
                   ),
                 ),
                 Text(
@@ -74,7 +74,7 @@ class TextStyleScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.deepPurple, // Changed from purple
+                    color: Colors.deepPurple, 
                   ),
                 ),
               ],
