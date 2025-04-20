@@ -1,128 +1,107 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const BottomNavApp());
 }
 
-// Main app widget
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BottomNavApp extends StatelessWidget {
+  const BottomNavApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal), // Changed to teal
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const DateTimePickerPage(),
+      home: const DateTimePickerScreen(),
     );
   }
 }
 
-// Stateful widget for the date and time picker screen
-class DateTimePickerPage extends StatefulWidget {
-  const DateTimePickerPage({super.key});
+class DateTimePickerScreen extends StatefulWidget {
+  const DateTimePickerScreen({super.key});
 
   @override
-  State<DateTimePickerPage> createState() => _DateTimePickerPageState();
+  State<DateTimePickerScreen> createState() => _DateTimePickerScreenState();
 }
 
-class _DateTimePickerPageState extends State<DateTimePickerPage> {
-  DateTime? selectedDate;
-  TimeOfDay? selectedTime;
+class _DateTimePickerScreenState extends State<DateTimePickerScreen> {
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
 
-  // Function to pick a date
-  Future<void> _chooseDate() async {
-    final DateTime? picked = await showDatePicker(
+  Future<void> _pickDate() async {
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != selectedDate) {
+    if (pickedDate != null) {
       setState(() {
-        selectedDate = picked;
+        _selectedDate = pickedDate;
       });
     }
   }
 
-  // Function to pick a time
-  Future<void> _chooseTime() async {
-    final TimeOfDay? picked = await showTimePicker(
+  Future<void> _pickTime() async {
+    final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    if (picked != null && picked != selectedTime) {
+    if (pickedTime != null) {
       setState(() {
-        selectedTime = picked;
+        _selectedTime = pickedTime;
       });
     }
   }
 
-  // Format the selected date
-  String get dateText {
-    if (selectedDate == null) {
-      return 'No date chosen';
-    }
-    return DateFormat('yyyy-MM-dd').format(selectedDate!);
+  String get formattedDate {
+    if (_selectedDate == null) return 'No date selected';
+    return DateFormat('yyyy-MM-dd').format(_selectedDate!);
   }
 
-  // Format the selected time
-  String get timeText {
-    if (selectedTime == null) {
-      return 'No time chosen';
-    }
-    return selectedTime!.format(context);
+  String get formattedTime {
+    if (_selectedTime == null) return 'No time selected';
+    return _selectedTime!.format(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[50], // Changed to teal shade
+      backgroundColor: Colors.purple[50],
       appBar: AppBar(
-        backgroundColor: Colors.teal[700], // Changed to teal
-        title: const Text('Choose Date & Time'),
+        backgroundColor: Colors.deepPurple,
+        title: const Text('Pick Date & Time'),
         centerTitle: true,
-        titleTextStyle: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+        titleTextStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // Slightly adjusted padding
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: _chooseDate,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal, // Changed to teal
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Pick a Date'),
+              onPressed: _pickDate,
+              child: const Text('Select Date'),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Text(
-              dateText,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              formattedDate,
+              style: const TextStyle(fontSize: 18),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: _chooseTime,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal, // Changed to teal
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Pick a Time'),
+              onPressed: _pickTime,
+              child: const Text('Select Time'),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Text(
-              timeText,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              formattedTime,
+              style: const TextStyle(fontSize: 18),
             ),
           ],
         ),
